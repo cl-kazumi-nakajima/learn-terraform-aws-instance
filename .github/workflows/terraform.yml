@@ -1,0 +1,20 @@
+name: Terraform apply
+permissions:
+  id-token: write
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  TerraformApply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.2
+          terraform_wrapper: false
+      - name: Exec Terraform
+        run: |
+          terraform init
+          terraform apply -auto-approve
